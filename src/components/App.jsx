@@ -12,14 +12,6 @@ const App = () => {
   const [total, setTotal] = useState(0);
   const [amount, setAmount] = useState(0);
 
-  const feedback = {
-    good,
-    neutral,
-    bad,
-    total,
-    amount,
-  };
-
   useEffect(() => {
     countTotalFeedback(good, neutral, bad);
     countPositiveFeedbackPercentage(good, neutral, bad);
@@ -64,7 +56,7 @@ const App = () => {
           handleReset={handleReset}
         />
 
-        {feedback.total > 0 ? (
+        {total > 0 ? (
           <Statistics
             good={good}
             neutral={neutral}
