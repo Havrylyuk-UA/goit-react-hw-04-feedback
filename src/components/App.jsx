@@ -10,6 +10,14 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const countTotalFeedback = (good, neutral, bad) => {
+    return good + neutral + bad;
+  };
+
+  const countPositiveFeedbackPercentage = (good, neutral, bad) => {
+    return Math.round((good / (good + neutral + bad)) * 100);
+  };
+
   const handleIncrement = option => {
     switch (option) {
       case 'good':
@@ -46,9 +54,11 @@ const App = () => {
             good={good}
             neutral={neutral}
             bad={bad}
-            total={good + neutral + bad}
-            positivePercentage={Math.round(
-              (good / (good + neutral + bad)) * 100
+            total={countTotalFeedback(good, neutral, bad)}
+            positivePercentage={countPositiveFeedbackPercentage(
+              good,
+              neutral,
+              bad
             )}
           />
         ) : (
