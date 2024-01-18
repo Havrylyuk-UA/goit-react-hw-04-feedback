@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 import Notification from './Notification/Notification';
@@ -9,21 +9,6 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [amount, setAmount] = useState(0);
-
-  useEffect(() => {
-    countTotalFeedback(good, neutral, bad);
-    countPositiveFeedbackPercentage(good, neutral, bad);
-  }, [good, neutral, bad]);
-
-  const countTotalFeedback = (good, neutral, bad) => {
-    setTotal(good + neutral + bad);
-  };
-
-  const countPositiveFeedbackPercentage = (good, neutral, bad) => {
-    setAmount(Math.round((good / (good + neutral + bad)) * 100));
-  };
 
   const handleIncrement = option => {
     switch (option) {
@@ -56,13 +41,15 @@ const App = () => {
           handleReset={handleReset}
         />
 
-        {total > 0 ? (
+        {good || neutral || bad > 0 ? (
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={total}
-            positivePercentage={amount}
+            total={good + neutral + bad}
+            positivePercentage={Math.round(
+              (good / (good + neutral + bad)) * 100
+            )}
           />
         ) : (
           <Notification message="There is no feedback" />
